@@ -45,9 +45,9 @@ class TennisMatch:
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone del giocatore 1
-GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone del giocatore 2
-GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone "undo"
-GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone "reset"
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone del giocatore 2
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone "undo"
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP) # bottone "reset"
 
 match = TennisMatch()
 
@@ -56,17 +56,17 @@ while True:
         match.score_point(1)
         time.sleep(0.5) # attesa per evitare il debounce
 
-    if GPIO.input(13) == GPIO.LOW:
+    if GPIO.input(12) == GPIO.LOW:
         match.score_point(2)
         time.sleep(0.5) # attesa per evitare il debounce
 
-    if GPIO.input(15) == GPIO.LOW:
+    if GPIO.input(13) == GPIO.LOW:
         # ritorna al click precedente
         match.player1_score = match.player1_score - 1 if match.player1_score > 0 else match.player1_score
         match.player2_score = match.player2_score - 1 if match.player2_score > 0 else match.player2_score
         time.sleep(0.5) # attesa per evitare il debounce
 
-    if GPIO.input(16) == GPIO.LOW:
+    if GPIO.input(22) == GPIO.LOW:
         # riavvia il gioco
         match.reset_game()
         time.sleep(0.5) # attesa per evitare il debounce
